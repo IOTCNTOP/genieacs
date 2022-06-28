@@ -61,7 +61,12 @@ export function onConnect(callback: (db: Db) => Promise<void>): void {
 }
 
 export async function connect(): Promise<void> {
-  clientPromise = MongoClient.connect("" + get("MONGODB_CONNECTION_URL"));
+  // clientPromise = MongoClient.connect("" + get("MONGODB_CONNECTION_URL"));
+  clientPromise = MongoClient.connect("" + get("MONGODB_CONNECTION_URL"),
+    { 
+      useNewUrlParser: true,
+    },
+  );
 
   const client = await clientPromise;
   const db = client.db();
